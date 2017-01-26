@@ -20,7 +20,6 @@
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
 
-\usepackage{hyperref}
 \usepackage{tabularx}
 
 \usepackage{textcomp}
@@ -41,8 +40,9 @@
 \usepackage{tikz}
 \usepackage[final]{pdfpages}
 \usepackage{makeidx}
+
 \usetikzlibrary{matrix, chains, positioning, arrows, arrows.meta, fit, calc, trees, shapes, shapes.symbols, shapes.geometric, decorations.pathreplacing, decorations.pathmorphing}
-% Setting list
+
 
 % Minted settings
 %\AtBeginEnvironment{minted}{%
@@ -80,7 +80,7 @@ isbn=false,
 doi=false,
 url=false,
 eprint=false,
-backend=bibtex,
+backend=bibtex, % sebelumnya biber
 natbib=true,
 style=authoryear,
 citestyle=authoryear,
@@ -122,7 +122,7 @@ uniquelist=false
 }
 
 
-% ubah and jadi and
+% ubah and jadi dan
 \let\origparencite\parencite
 \renewrobustcmd{\parencite}{%
   \AtNextCite{%
@@ -339,7 +339,49 @@ uniquelist=false
 \newcommand{\@thirdexaminer}{}
 
 %------------------------------------------------------------
+%format tanggal proposal
+%------------------------------------------------------------
+\newcommand{\agreedate}[1]{\gdef\@agreedate{#1}}
+\newcommand{\@agreedate}{\number\day~\ifcase\month\or
+    Januari\or Pebruari\or Maret\or April\or Mei\or Juni\or
+    Juli\or Agustus\or September\or Oktober\or Nopember\or Desember\fi
+    \space \number\year}
+    
+%------------------------------------------------------------
 %Define cover in Indonesian
+%------------------------------------------------------------
+%\def\cover{%
+%  \thispagestyle{empty}%
+%  \pagenumbering{roman}
+%  \setcounter{page}{1}
+%    \begin{center}
+%      \begin{singlespace}
+%      \MakeUppercase{\normalfont\bfseries Skripsi}\\
+%      \vspace{1.5cm}
+%      \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
+%      \vspace{1.0cm}
+%      \MakeUppercase{\normalfont\slshape\bfseries\@titleeng}\par\nobreak
+%       \vfill
+%       \includegraphics{logougm}
+%       \vfill
+%       {\normalfont
+%        \@fullname\\
+%        \@idnum}\\
+%       \vspace{1.5cm}
+%       {\normalfont
+%         \MakeUppercase{\normalfont\bfseries Program Studi \@program}\\
+%         \MakeUppercase{\normalfont\bfseries Jurusan \@dept}\\
+%         \MakeUppercase{\normalfont\bfseries\@faculty}\\
+%         \MakeUppercase{\normalfont\bfseries\@university}\\
+%         \MakeUppercase{\normalfont\bfseries\@city}\\
+%         \vspace{0.5cm}
+%         {\normalfont\bfseries\@yearsubmit}}\\
+%      \end{singlespace}
+%      \end{center}
+%}
+
+%------------------------------------------------------------
+%Define cover proposal in Indonesian
 %------------------------------------------------------------
 \def\cover{%
   \thispagestyle{empty}%
@@ -347,8 +389,8 @@ uniquelist=false
   \setcounter{page}{1}
     \begin{center}
       \begin{singlespace}
-      \MakeUppercase{\normalfont\bfseries Skripsi}\\
-      \vspace{1.5cm}
+      \MakeUppercase{\normalfont\bfseries Usulan Penelitian Tugas Akhir S1}\\
+      \vspace{1.5cm}  
       \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
       \vspace{1.0cm}
       \MakeUppercase{\normalfont\slshape\bfseries\@titleeng}\par\nobreak
@@ -359,9 +401,9 @@ uniquelist=false
         \@fullname\\
         \@idnum}\\
        \vspace{1.5cm}
-       {\normalfont
+       {\normalfont 
          \MakeUppercase{\normalfont\bfseries Program Studi \@program}\\
-         \MakeUppercase{\normalfont\bfseries Jurusan \@dept}\\
+         \MakeUppercase{\normalfont\bfseries Departemen \@dept}\\
          \MakeUppercase{\normalfont\bfseries\@faculty}\\
          \MakeUppercase{\normalfont\bfseries\@university}\\
          \MakeUppercase{\normalfont\bfseries\@city}\\
@@ -369,47 +411,15 @@ uniquelist=false
          {\normalfont\bfseries\@yearsubmit}}\\
       \end{singlespace}
       \end{center}
-}
+      \addcontentsline{toc}{chapter}{HALAMAN SAMPUL}
+} 
 
-%------------------------------------------------------------
-%Define cover proposal in Indonesian
-%------------------------------------------------------------
-%\def\cover{%
-%  \thispagestyle{empty}%
-%  \pagenumbering{roman}
-%  \setcounter{page}{1}
-%    \begin{center}
-%      \begin{singlespace}
-%      \MakeUppercase{\normalfont\bfseries Proposal Skripsi}\\
-%      \vspace{1.5cm}  
-%     \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
-%      \vspace{1.0cm}
-%      \MakeUppercase{\normalfont\slshape\bfseries\@titleeng}\par\nobreak
-%       \vfill
-%       \includegraphics{logougm}
-%       \vfill
-%       {\normalfont
-%        \@fullname\\
-%        \@idnum}\\
-%       \vspace{1.5cm}
-%       {\normalfont 
-%         \MakeUppercase{\normalfont\bfseries Program Studi \@program}\\
-%         \MakeUppercase{\normalfont\bfseries Departemen \@dept}\\
-%         \MakeUppercase{\normalfont\bfseries\@faculty}\\
-%         \MakeUppercase{\normalfont\bfseries\@university}\\
-%         \MakeUppercase{\normalfont\bfseries\@city}\\
-%         \vspace{0.5cm}
-%         {\normalfont\bfseries\@yearsubmit}}\\
-%      \end{singlespace}
-%      \end{center}
-%      \addcontentsline{toc}{chapter}{HALAMAN SAMPUL}
-%}   
 
 %------------------------------------------------------------
 %Define titlepage in Indonesian
 %------------------------------------------------------------
 \def\titlepageind{%
-  \thispagestyle{empty}%
+  \thispagestyle{empty}% suppress any headline
   \pagenumbering{roman}
   \setcounter{page}{1}
     \begin{center}
@@ -446,11 +456,45 @@ uniquelist=false
 \addcontentsline{toc}{chapter}{Halaman Judul}
 }
 
+% %------------------------------------------------------------
+% %Format proposal 
+% %------------------------------------------------------------
+% \def\agreementpage{
+%   \newpage\thispagestyle{empty}
+%   \begin{center}
+%   \begin{singlespace}
+%   \MakeUppercase{\normalfont\large\bfseries\expandafter{Halaman Persetujuan}}\\
+%   \vspace{1.0cm}
+%   \MakeUppercase{\normalfont\large\bfseries\expandafter{Proposal Skripsi}}\\
+%   \vspace{0.5cm}
+%     \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
+%   \vspace{1.0cm}
+%   Diusulkan oleh :
+%   \vspace{1.5cm}\\
+%   \textbf{\@fullname}
+%   \vspace{0.5cm}\\
+%   \textbf{\@idnum}
+%   \vspace{1.5cm}\\
+%   Telah disetujui pada
+%   \vspace{0.5cm}\\
+%   pada tanggal
+%   \@agreedate
+%   \vspace{1.5cm}\\
+%   \underline{\@firstsupervisor}\\
+%   Pembimbing
+
+
+%   \end{singlespace}
+%   \end{center}
+%   \addcontentsline{toc}{chapter}{HALAMAN PERSETUJUAN}
+% }
+
 %------------------------------------------------------------
 %Format proposal 
 %------------------------------------------------------------
 \def\agreementpage{
-  \newpage\thispagestyle{empty}
+  \clearpage\newpage
+  \thispagestyle{empty}
   \begin{center}
   \begin{singlespace}
   \MakeUppercase{\normalfont\large\bfseries\expandafter{Halaman Persetujuan}}\\
@@ -467,7 +511,7 @@ uniquelist=false
   \vspace{1.5cm}\\
   Telah disetujui pada
   \vspace{0.5cm}\\
-  pada tanggal
+  tanggal
   \@agreedate
   \vspace{1.5cm}\\
   \underline{\@firstsupervisor}\\
@@ -488,7 +532,7 @@ uniquelist=false
   \begin{singlespace}
   \MakeUppercase{\normalfont\large\bfseries\expandafter{Halaman Pengesahan}}\\
   \vspace{1.0cm}
-  \MakeUppercase{\normalfont\large\bfseries\expandafter{Skripsi}}\\
+  \MakeUppercase{\normalfont\large\bfseries\expandafter{Usulan Penelitian S1}}\\
   \vspace{0.5cm}
       \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
   \vspace{1.0cm}
@@ -521,7 +565,14 @@ Pembimbing&Ketua Penguji
 \end{tabular}
     \end{singlespace}
     \end{center}
-\addcontentsline{toc}{chapter}{Halaman Pengesahan}
+\addcontentsline{toc}{chapter}{HALAMAN PENGESAHAN}
+}
+
+%signed
+\def\approvalpagesigned{
+  \setboolean{@twoside}{false}
+  \includepdf[pages=-, offset=75 -75]{PROPOSAL/a.pdf} % todo : change later
+  \addcontentsline{toc}{chapter}{HALAMAN PENGESAHAN}
 }
 
 %------------------------------------------------------------
