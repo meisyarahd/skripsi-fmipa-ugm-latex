@@ -8,6 +8,7 @@ Template Latex Skripsi FMIPA UGM. Lanjutan modifikasi template official tanpa ha
  - [MANIFESTO](#latex-manifesto-in-this-repo)
  - [How to Install Latex (Linux)](#installation-on-linux)
    - [Full Install](#full-package-install)
+   - [Basic Install](#basic-package-install)
  - [How to Install Latex (OSX)](#osx)
  - [How to Install Latex (Windows)](#windows)
  - [How to Compile into pdf](#how-to-compile-into-pdf)
@@ -30,6 +31,11 @@ Template Latex Skripsi FMIPA UGM. Lanjutan modifikasi template official tanpa ha
 * Buka terminal dan masukkan
   ```bash
 sudo apt-get install texlive-full
+  ```
+### Basic Package Install
+- Buka terminal dan masukkan
+  ```bash
+sudo apt-get install texlive texlive-base texlive-lang-english texlive-lang-other
   ```
 
 ## how to compile into pdf?
