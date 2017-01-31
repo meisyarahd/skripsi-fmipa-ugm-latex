@@ -27,10 +27,10 @@ Template Latex Skripsi FMIPA UGM. Lanjutan modifikasi template official tanpa ha
  Disini terdapat dua opsi untuk install compiler latex. [Full](#install-package-latex-secara-keseluruhan) dan seperlunya.
 
 ### Full Package Install
- * Buka terminal dan masukkan
-   ```bash
+* Buka terminal dan masukkan
+  ```bash
 sudo apt-get install texlive-full
-   ```
+  ```
 
 ## how to compile into pdf?
 
