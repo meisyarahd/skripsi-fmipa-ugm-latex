@@ -60,7 +60,8 @@ Pakai MikTex saja kalau tidak mau ribet! GUI enak!
 
 # Selamat Mengerjakan Skripsi!!!
 
-TODO:
-[ ] Tambah tutorial mendetail cara install dan konfigurasi latex
-[ ] Script untuk OSX dan Windows
-[ ] Tambah contoh file .tex
+## TODO:
+- [ ] Tambah tutorial mendetail cara install dan konfigurasi latex
+- [ ] Tambah tutorial BibTex
+- [ ] Script untuk OSX dan Windows
+- [ ] Tambah contoh file .tex
