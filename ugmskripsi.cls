@@ -12,13 +12,15 @@
 \RequirePackage{graphicx,latexsym}
 \RequirePackage{amsmath}
 \RequirePackage{array}
-%\usepackage{minted}
-% \usemintedstyle{bw}
+\usepackage{minted}
+\usemintedstyle{emacs}
+\usemintedstyle{bw}
 
 \usepackage{adjustbox}
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
+\usepackage{diagbox}
 
 \usepackage{hyperref}
 \usepackage{tabularx}
@@ -39,8 +41,13 @@
 \usepackage{multicol}
 \usepackage{pdflscape}
 \usepackage{tikz}
+\usepackage{bm} % bold symbol
 \usepackage[final]{pdfpages}
 \usepackage{makeidx}
+\usepackage{mfirstuc} % change case to title like
+\usepackage{ragged2e}
+
+% \usepackage{textcase} % to upper and to lower
 \usetikzlibrary{matrix, chains, positioning, arrows, arrows.meta, fit, calc, trees, shapes, shapes.symbols, shapes.geometric, decorations.pathreplacing, decorations.pathmorphing}
 % Setting list
 
@@ -80,7 +87,7 @@ isbn=false,
 doi=false,
 url=false,
 eprint=false,
-backend=bibtex,
+backend=biber,
 natbib=true,
 style=authoryear,
 citestyle=authoryear,
@@ -99,7 +106,6 @@ uniquelist=false
 
 % spasi 1.5 tiap daftar pustaka
 \setlength\bibitemsep{1.5\itemsep}
-
 
 % format untuk buku
 \DeclareBibliographyDriver{book}{%
@@ -306,16 +312,19 @@ uniquelist=false
 \gdef\@city{Yogyakarta}
 \newcommand{\titleind}[1]{\gdef\@titleind{#1}}
 \newcommand{\@titleind}{}
+\newcommand{\gettitleind}{\@titleind}
 \newcommand{\titleeng}[1]{\gdef\@titleeng{#1}}
 \newcommand{\@titleeng}{}
+\newcommand{\gettitleeng}{\@titleeng}
 \newcommand{\fullname}[1]{\gdef\@fullname{#1}}
 \newcommand{\@fullname}{}
+\newcommand{\getfullname}{\xcapitalisewords{\@fullname}}
 \newcommand{\idnum}[1]{\gdef\@idnum{#1}}
 \newcommand{\@idnum}{}
 \newcommand{\examdate}[1]{\gdef\@examdate{#1}}
 \newcommand{\@examdate}{\number\day~\ifcase\month\or
-    Januari\or Pebruari\or Maret\or April\or Mei\or Juni\or
-    Juli\or Agustus\or September\or Oktober\or Nopember\or Desember\fi
+    Januari\or Februari\or Maret\or April\or Mei\or Juni\or
+    Juli\or Agustus\or September\or Oktober\or November\or Desember\fi
     \space \number\year}
 \newcommand{\degree}[1]{\gdef\@degree{#1}}
 \newcommand{\@degree}{}
@@ -329,8 +338,10 @@ uniquelist=false
 \newcommand{\@dept}{}
 \newcommand{\firstsupervisor}[1]{\gdef\@firstsupervisor{#1}}
 \newcommand{\@firstsupervisor}{}
+\newcommand{\getfirstsupervisor}{\@firstsupervisor}
 \newcommand{\secondsupervisor}[1]{\gdef\@secondsupervisor{#1}}
 \newcommand{\@secondsupervisor}{}
+\newcommand{\getsecondsupervisor}{\@secondsupervisor}
 \newcommand{\firstexaminer}[1]{\gdef\@firstexaminer{#1}}%
 \newcommand{\@firstexaminer}{}
 \newcommand{\secondexaminer}[1]{\gdef\@secondexaminer{#1}}%
@@ -353,15 +364,15 @@ uniquelist=false
       \vspace{1.0cm}
       \MakeUppercase{\normalfont\slshape\bfseries\@titleeng}\par\nobreak
        \vfill
-       \includegraphics{logougm}
+       \includegraphics[width=180px]{logougm}
        \vfill
        {\normalfont
-        \@fullname\\
+        \MakeUppercase{\@fullname}\\
         \@idnum}\\
        \vspace{1.5cm}
        {\normalfont
          \MakeUppercase{\normalfont\bfseries Program Studi \@program}\\
-         \MakeUppercase{\normalfont\bfseries Jurusan \@dept}\\
+         \MakeUppercase{\normalfont\bfseries Departemen \@dept}\\
          \MakeUppercase{\normalfont\bfseries\@faculty}\\
          \MakeUppercase{\normalfont\bfseries\@university}\\
          \MakeUppercase{\normalfont\bfseries\@city}\\
@@ -370,40 +381,6 @@ uniquelist=false
       \end{singlespace}
       \end{center}
 }
-
-%------------------------------------------------------------
-%Define cover proposal in Indonesian
-%------------------------------------------------------------
-%\def\cover{%
-%  \thispagestyle{empty}%
-%  \pagenumbering{roman}
-%  \setcounter{page}{1}
-%    \begin{center}
-%      \begin{singlespace}
-%      \MakeUppercase{\normalfont\bfseries Proposal Skripsi}\\
-%      \vspace{1.5cm}  
-%     \MakeUppercase{\normalfont\bfseries\@titleind}\par\nobreak
-%      \vspace{1.0cm}
-%      \MakeUppercase{\normalfont\slshape\bfseries\@titleeng}\par\nobreak
-%       \vfill
-%       \includegraphics{logougm}
-%       \vfill
-%       {\normalfont
-%        \@fullname\\
-%        \@idnum}\\
-%       \vspace{1.5cm}
-%       {\normalfont 
-%         \MakeUppercase{\normalfont\bfseries Program Studi \@program}\\
-%         \MakeUppercase{\normalfont\bfseries Departemen \@dept}\\
-%         \MakeUppercase{\normalfont\bfseries\@faculty}\\
-%         \MakeUppercase{\normalfont\bfseries\@university}\\
-%         \MakeUppercase{\normalfont\bfseries\@city}\\
-%         \vspace{0.5cm}
-%         {\normalfont\bfseries\@yearsubmit}}\\
-%      \end{singlespace}
-%      \end{center}
-%      \addcontentsline{toc}{chapter}{HALAMAN SAMPUL}
-%}   
 
 %------------------------------------------------------------
 %Define titlepage in Indonesian
@@ -427,15 +404,15 @@ uniquelist=false
         {\normalfont Usulan Penelitian}\\
        \fi
        \vfill
-       \includegraphics{logougm}
+       \includegraphics[width=180px]{logougm}
        \vfill
        {\normalfont
-        \@fullname\\
+        \MakeUppercase{\@fullname}\\
         \@idnum}\\
        \vspace{1.5cm}
        {\normalfont
          \MakeUppercase{\normalfont\bfseries Program Studi \@program}\\
-         \MakeUppercase{\normalfont\bfseries Jurusan \@dept}\\
+         \MakeUppercase{\normalfont\bfseries Departemen \@dept}\\
          \MakeUppercase{\normalfont\bfseries\@faculty}\\
          \MakeUppercase{\normalfont\bfseries\@university}\\
          \MakeUppercase{\normalfont\bfseries\@city}\\
@@ -447,7 +424,7 @@ uniquelist=false
 }
 
 %------------------------------------------------------------
-%Format proposal 
+%Format proposal
 %------------------------------------------------------------
 \def\agreementpage{
   \newpage\thispagestyle{empty}
@@ -461,7 +438,7 @@ uniquelist=false
   \vspace{1.0cm}
   Diusulkan oleh :
   \vspace{1.5cm}\\
-  \textbf{\@fullname}
+  \textbf{\MakeUppercase{\@fullname}}
   \vspace{0.5cm}\\
   \textbf{\@idnum}
   \vspace{1.5cm}\\
@@ -494,7 +471,7 @@ uniquelist=false
   \vspace{1.0cm}
 Telah dipersiapkan dan disusun oleh\\
 \vspace{0.5cm}
-\@fullname\\
+\MakeUppercase{\@fullname}\\
 \@idnum\\
 \vspace{1.0cm}
 Telah dipertahankan di depan Tim Penguji\\
@@ -529,27 +506,27 @@ Pembimbing&Ketua Penguji
 %------------------------------------------------------------
 \def\declarepage{%
   \newpage\thispagestyle{chapterheading}%
-  \begin{center}
-  {\normalfont\large\bfseries\expandafter{PERNYATAAN}}
-  \par\nobreak
+  \begin{center}{
+    \normalfont\large\bfseries\expandafter{PERNYATAAN}
+  }\par\nobreak
   \end{center}
   \vspace{1.0cm}
-    \noindent
+  \noindent
 Dengan ini saya menyatakan bahwa dalam Skripsi ini tidak terdapat karya yang
 pernah diajukan untuk memperoleh gelar kesarjanaan di suatu Perguruan Tinggi,
 dan sepanjang pengetahuan saya juga tidak terdapat karya atau pendapat yang
 ditulis atau diterbitkan oleh orang lain, kecuali yang secara tertulis diacu
 dalam naskah ini dan disebutkan dalam daftar pustaka.
 
-\vspace{1.5cm}
-\begin{tabular}{p{7.5cm}c}
-&\@city,\space\@examdate\\
-&\\
-&\\
-&\space\@fullname
-\end{tabular}
-\vfill
-\addcontentsline{toc}{chapter}{Halaman Pernyataan}
+  \vspace{1.5cm}
+  \begin{tabular}{p{5cm}c}
+    &\@city,\space\@examdate\\
+    &\\
+    &\\
+    &\getfullname
+  \end{tabular}
+  \vfill
+  \addcontentsline{toc}{chapter}{Halaman Pernyataan}
 }
 
 %------------------------------------------------------------
@@ -601,7 +578,7 @@ dalam naskah ini dan disebutkan dalam daftar pustaka.
     \interlinepenalty\@M
     {\normalsize Oleh\par
    \vspace{0.5cm}
-    \@fullname\\
+    \getfullname\\
     \@idnum\\
     \vskip 10\p@
     }\par\nobreak
@@ -626,7 +603,7 @@ dalam naskah ini dan disebutkan dalam daftar pustaka.
     \interlinepenalty\@M
     {\normalsize By\par
    \vspace{0.5cm}
-    \@fullname\\
+    \getfullname\\
     \@idnum\\
     \vskip 10\p@
     }\par\nobreak
