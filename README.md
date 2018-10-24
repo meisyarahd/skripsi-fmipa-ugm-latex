@@ -63,7 +63,7 @@ Pakai MikTex saja kalau tidak mau ribet! GUI enak!
 
 ## Ada Internet?
 
-[Overleaf](https://www.overleaf.com/)
+Bisa pakai [Overleaf](https://www.overleaf.com/).
 
 # Selamat Mengerjakan Skripsi!!!
 
